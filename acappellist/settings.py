@@ -1,6 +1,7 @@
 # Django settings for acappellist project.
 
 import logging
+import os
 
 # local_settings should define the following:
 # DEBUG, TEMPLATE_DEBUG, DATABASES, SECRET_KEY
@@ -10,12 +11,13 @@ try:
 except ImportError:
   pass
 
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
 ADMINS = (
     ('Craig Martek', 'craigmartek@gmail.com'),
 )
 
 MANAGERS = ADMINS
-
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -68,6 +70,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -103,6 +106,7 @@ ROOT_URLCONF = 'acappellist.urls'
 WSGI_APPLICATION = 'acappellist.wsgi.application'
 
 TEMPLATE_DIRS = (
+    os.path.join(PROJECT_ROOT, 'templates'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -118,6 +122,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'south',
+    'storages',
+    'comingsoon',
 )
 
 # A sample logging configuration. The only tangible logging
