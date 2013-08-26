@@ -64,9 +64,13 @@ MEDIA_URL = ''
 # Example: "/var/www/example.com/static/"
 STATIC_ROOT = ''
 
-# URL prefix for static files.
-# Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = '/static/'
+if PRODUCTION:
+  AWS_STORAGE_BUCKET_NAME = 'newacalist'
+  STATICFILES_STORAGE = 'storage.backends.s3boto.S3BotoStorage'
+  STATIC_URL = 'https://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
+else:
+  STATIC_URL = '/static/'
+
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -84,11 +88,22 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.contrib.messages.context_processors.messages',
+    'acappellist.context_processors.debug',
 )
 
 MIDDLEWARE_CLASSES = (

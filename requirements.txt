@@ -4,4 +4,5 @@ argparse==1.2.1
 boto==2.10.0
 dj-database-url==0.2.2
 django-storages==1.1.8
+gunicorn==17.5
 wsgiref==0.1.2
