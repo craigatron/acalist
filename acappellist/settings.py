@@ -3,14 +3,6 @@
 import logging
 import os
 
-# local_settings should define the following:
-# DEBUG, TEMPLATE_DEBUG, DATABASES, SECRET_KEY
-# and any other local configuration
-try:
-  from local_settings import *
-except ImportError:
-  pass
-
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 ADMINS = (
@@ -169,3 +161,11 @@ LOGGING = {
         },
     }
 }
+
+# local_settings should define the following:
+# DEBUG, TEMPLATE_DEBUG, DATABASES, SECRET_KEY
+# and any other local configuration
+try:
+  from local_settings import *
+except ImportError:
+  pass
