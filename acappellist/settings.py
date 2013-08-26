@@ -3,6 +3,14 @@
 import logging
 import os
 
+# local_settings should define the following:
+# DEBUG, TEMPLATE_DEBUG, DATABASES, SECRET_KEY
+# and any other local configuration
+try:
+  from local_settings import *
+except ImportError:
+  pass
+
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 ADMINS = (
@@ -10,13 +18,6 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-
-# Hosts/domain names that are valid for this site; required if DEBUG is False
-# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = [
-    '.acalist.com',
-    '.acappellist.com',
-]
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -161,11 +162,3 @@ LOGGING = {
         },
     }
 }
-
-# local_settings should define the following:
-# DEBUG, TEMPLATE_DEBUG, DATABASES, SECRET_KEY
-# and any other local configuration
-try:
-  from local_settings import *
-except ImportError:
-  pass
