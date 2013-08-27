@@ -1,11 +1,36 @@
 {% extends "base.html" %}
 {% block title %} - Coming Soon!{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/comingsoon.css">
+{% endblock %}
 {% block content %}
 <div class="jumbotron">
   <div class="container">
-    <h2>Organizing the online world of a cappella</h2>
+    <h1>Be right back!</h1>
     <p>The Acalist is currently undergoing a much-needed facelift.
     Want to help out?  <a href="mailto:craigmartek@gmail.com">Send me an email!</a></p>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4">
+      <img class="img-circle" src="{{ STATIC_URL }}images/comingsoon.png" 
+          style="width: 140px; height: 140px;" />
+      <h2>Groups</h2>
+      <p>See groups in your area and across the globe!</p>
+    </div>
+    <div class="col-lg-4">
+      <img class="img-circle" src="{{ STATIC_URL }}images/comingsoon.png" 
+          style="width: 140px; height: 140px;" />
+      <h2>Events</h2>
+      <p>Track what a cappella events are happening near you and publicize your own group's events!</p>
+    </div>
+    <div class="col-lg-4">
+      <img class="img-circle" src="{{ STATIC_URL }}images/comingsoon.png" 
+          style="width: 140px; height: 140px;" />
+      <h2>Auditions</h2>
+      <p>Look for groups that are auditioning, start a new group, or get auditionees for your group!</p>
+    </div>
   </div>
 </div>
 {% endblock %}
