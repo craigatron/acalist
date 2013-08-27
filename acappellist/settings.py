@@ -59,7 +59,7 @@ STATIC_ROOT = ''
 
 if PRODUCTION:
   AWS_STORAGE_BUCKET_NAME = 'newacalist'
-  STATICFILES_STORAGE = 'storage.backends.s3boto.S3BotoStorage'
+  STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
   STATIC_URL = 'https://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
 else:
   STATIC_URL = '/static/'
