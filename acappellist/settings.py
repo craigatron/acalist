@@ -132,6 +132,7 @@ INSTALLED_APPS = (
     'south',
     'storages',
     'comingsoon',
+    'groups',
 )
 
 # A sample logging configuration. The only tangible logging
