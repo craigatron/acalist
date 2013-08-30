@@ -133,6 +133,7 @@ INSTALLED_APPS = (
     'storages',
     'comingsoon',
     'groups',
+    'map',
 )
 
 # A sample logging configuration. The only tangible logging
