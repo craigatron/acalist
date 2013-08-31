@@ -4,4 +4,4 @@ from rest_framework import serializers
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
   class Meta:
     model = models.Group
-    fields = ('name', 'location', 'latitude', 'longitude')
+    fields = ('id', 'name', 'group_type', 'location', 'latitude', 'longitude')
