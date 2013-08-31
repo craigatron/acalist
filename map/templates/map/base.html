@@ -3,14 +3,18 @@
   <link href="{{ STATIC_URL }}css/map.css" rel="stylesheet">
 {% endblock %}
 {% block scripts %}
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIu6cz3AmRpnxYykb_IYV7a4tmdPELnro&sensor=false" type="text/javascript"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIu6cz3AmRpnxYykb_IYV7a4tmdPELnro&libraries=visualization&sensor=false" type="text/javascript"></script>
   {% if include_oms %}
     <script src="{{ STATIC_URL }}js/oms.min.js" type="text/javascript"></script>
   {% endif %}
   {% if include_clusterer %}
     <script src="{{ STATIC_URL }}js/markerclusterer_packed.js" type="text/javascript"></script>
   {% endif %}
-  <script src="{{ STATIC_URL }}js/map.js" type="text/javascript"></script>
+  {% if heatmap %}
+    <script src="{{ STATIC_URL }}js/heatmap.js" type="text/javascript"></script>
+  {% else %}
+    <script src="{{ STATIC_URL }}js/map.js" type="text/javascript"></script>
+  {% endif %}
 {% endblock %}
 {% block content %}
   <div class="container map">
