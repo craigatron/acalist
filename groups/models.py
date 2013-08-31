@@ -20,7 +20,7 @@ class Group(models.Model):
   longitude = models.FloatField()
   website = models.URLField(null=True, blank=True)
   email = models.EmailField(max_length=255, null=True, blank=True)
-  wikipella_url = models.URLField(null=True, blank=True)
+  wikipella_id = models.CharField(max_length=255, null=True, blank=True)
   facebook_id = models.CharField(max_length=255, null=True, blank=True)
   twitter_id = models.CharField(max_length=30, null=True, blank=True)
   youtube_id = models.CharField(max_length=255, null=True, blank=True)
