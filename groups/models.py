@@ -4,7 +4,7 @@ class Group(models.Model):
   TYPES = (
       (0, 'scholastic'),
       (1, 'collegiate'),
-      (2, 'casual'),
+      (2, 'semi-professional'),
       (3, 'professional'),
       (4, 'other'),
   )
