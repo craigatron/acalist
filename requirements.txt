@@ -3,6 +3,8 @@ South==0.8.2
 argparse==1.2.1
 boto==2.11.0
 dj-database-url==0.2.2
+django-filter==0.7
 django-storages==1.1.8
+djangorestframework==2.3.7
 gunicorn==18.0
 wsgiref==0.1.2
