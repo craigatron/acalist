@@ -7,18 +7,15 @@ Heatmap = function(apiUrl) {
   }
   this.map_ = new google.maps.Map(document.getElementById('map_canvas'),
       mapOptions);
-};
-
-Heatmap.prototype.loadData = function() {
   var self = this;
   $.getJSON(this.apiUrl_, {}, function(data) {
     var pointArray = new google.maps.MVCArray();
     $.each(data, function(i, item) {
       pointArray.push(new google.maps.LatLng(item.latitude, item.longitude));
     });
-    heatmap = new google.maps.visualization.HeatmapLayer({
-      data: pointArray
+    var heatmap = new google.maps.visualization.HeatmapLayer({
+      data: pointArray,
+      map: self.map_,
     });
-    heatmap.setMap(this.map_);
   });
 };

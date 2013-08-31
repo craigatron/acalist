@@ -2,9 +2,8 @@
 {% block title %} - Groups Heatmap{% endblock %}
 {% block endbody %}
 <script type="text/javascript">
-  google.maps.event.addDomListener(window, 'load', function() {
+  $(document).ready(function() {
     var heatmap = new Heatmap('/api/groups/');
-    heatmap.loadData();
   });
 </script>
 {% endblock %}
