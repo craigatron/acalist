@@ -1,5 +1,9 @@
 {% extends "map/base.html" %}
 {% block title %} - Groups Map{% endblock %}
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}groups/css/map.css">
+{% endblock %}
 {% block endbody %}
 <script type="text/javascript">
   $(document).ready(function() {
@@ -21,4 +25,14 @@
     map.loadMarkers();
   });
 </script>
+{% endblock %}
+{% block legend %}
+  <div id="legend">
+    <table>
+      <tr><td><img src="{{ STATIC_URL }}img/red.png" /></td><td>Scholastic</td></tr>
+      <tr><td><img src="{{ STATIC_URL }}img/blue.png" /></td><td>Collegiate</td></tr>
+      <tr><td><img src="{{ STATIC_URL }}img/green.png" /></td><td>Casual</td></tr>
+      <tr><td><img src="{{ STATIC_URL }}img/purple.png" /></td><td>Professional</td></tr>
+      <tr><td><img src="{{ STATIC_URL }}img/orange.png" /></td><td>Other</td></tr>
+  </div>
 {% endblock %}

@@ -12,6 +12,8 @@ Map = function(useClusterer, apiUrl, iconFunction, staticUrl) {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   }
   this.map_ = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+  this.map_.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(
+      document.getElementById('legend'));
   var omsOptions = {
     keepSpiderfied: true
   }
