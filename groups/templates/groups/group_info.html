@@ -1,0 +1,34 @@
+<div class="infowindow">
+  <h3>{{ group.name }}</h3>
+  <p><strong>Location:</strong> {{ group.location }}</p>
+  {% if group.website %}
+    <p><a href="{{ group.website }}" target="_blank">Website</a></p>
+  {% endif %}
+  {% if group.wikipella_id %}
+    <p><a href="http://wikipella.org/wiki/{{ group.wikipella_id }}" target="_blank">Wikipella</a></p>
+  {% endif %}
+  {% if group.email or group.facebook_id or group.twitter_id or group.youtube_id or group.gplus_id or group.myspace_id %}
+    <table>
+      <tr>
+        {% if group.email %}
+          <td><a href="mailto:{{ group.email }}" target="_blank"><img src="{{ STATIC_URL }}img/Mail.png" /></a></td>
+        {% endif %}
+        {% if group.facebook_id %}
+          <td><a href="https://facebook.com/{{ group.facebook_id }}" target="_blank"><img src="{{ STATIC_URL }}img/Facebook.png" /></a></td>
+        {% endif %}
+        {% if group.twitter_id %}
+          <td><a href="https://twitter.com/{{ group.twitter_id }}" target="_blank"><img src="{{ STATIC_URL }}img/Twitter.png" /></a></td>
+        {% endif %}
+        {% if group.youtube_id %}
+          <td><a href="https://youtube.com/user/{{ group.youtube_id }}" target="_blank"><img src="{{ STATIC_URL }}img/YouTube.png" /></a></td>
+        {% endif %}
+        {% if group.gplus_id %}
+          <td><a href="https://plus.google.com/{{ group.gplus_id }}" target="_blank"><img src="{{ STATIC_URL }}img/Google+.png" /></a></td>
+        {% endif %}
+        {% if group.myspace_id %}
+          <td><a href="https://myspace.com/{{ group.myspace_id }}" target="_blank"><img src="{{ STATIC_URL }}img/MySpace.png" /></a></td>
+        {% endif %}
+      </tr>
+    </table>
+  {% endif %}
+</div>
