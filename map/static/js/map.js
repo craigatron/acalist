@@ -1,9 +1,10 @@
 /**
  * @constructor
  */
-Map = function(useClusterer, apiUrl, iconFunction, staticUrl) {
+Map = function(useClusterer, apiUrl, infoUrl, iconFunction, staticUrl) {
   this.useClusterer_ = useClusterer;
   this.apiUrl_ = apiUrl;
+  this.infoUrl_ = infoUrl;
   this.iconFunction_ = iconFunction;
   this.staticUrl_ = staticUrl;
   var mapOptions = {
@@ -24,8 +25,13 @@ Map.prototype.initialize = function() {
   var self = this;
   var iw = new google.maps.InfoWindow();
   this.oms_.addListener('click', function(marker) {
-    iw.setContent(marker.name);
-    iw.open(self.map_, marker);
+    $.ajax({
+      url: self.infoUrl_ + marker.id,
+      dataType: 'html'
+    }).done(function(html) {
+      iw.setContent(html);
+      iw.open(self.map_, marker);
+    });
   });
   this.oms_.addListener('spiderfy', function(markers) {
     iw.close();
@@ -47,7 +53,7 @@ Map.prototype.loadMarkers = function() {
         position: point,
         icon: icon
       });
-      marker.name = item.name;
+      marker.id = item.id;
       self.oms_.addMarker(marker);
     });
     if (self.useClusterer_) {

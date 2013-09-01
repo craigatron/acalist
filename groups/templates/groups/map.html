@@ -7,7 +7,7 @@
 {% block endbody %}
 <script type="text/javascript">
   $(document).ready(function() {
-    var map = new Map(true, '/api/groups/', function(item) {
+    var map = new Map(true, '/api/groups/', '/groups/info/', function(item) {
       switch (item.group_type) {
         case 0:
         return 'red.png';
