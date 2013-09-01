@@ -16,6 +16,7 @@ Heatmap = function(apiUrl) {
     var heatmap = new google.maps.visualization.HeatmapLayer({
       data: pointArray,
       map: self.map_,
+      radius: 30,
     });
   });
 };
