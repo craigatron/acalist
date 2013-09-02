@@ -20,12 +20,19 @@ class Group(models.Model):
   longitude = models.FloatField()
   website = models.URLField(null=True, blank=True)
   email = models.EmailField(max_length=255, null=True, blank=True)
-  wikipella_id = models.CharField(max_length=255, null=True, blank=True)
+
+  # Social media stuff
+  bajigga_id = models.CharField(max_length=255, null=True, blank=True)
   facebook_id = models.CharField(max_length=255, null=True, blank=True)
-  twitter_id = models.CharField(max_length=30, null=True, blank=True)
-  youtube_id = models.CharField(max_length=255, null=True, blank=True)
   gplus_id = models.CharField(max_length=255, null=True, blank=True)
   myspace_id = models.CharField(max_length=255, null=True, blank=True)
+  soundcloud_id = models.CharField(max_length=255, null=True, blank=True)
+  spotify_id = models.CharField(max_length=255, null=True, blank=True)
+  tumblr_id = models.CharField(max_length=255, null=True, blank=True)
+  twitter_id = models.CharField(max_length=30, null=True, blank=True)
+  wikipella_id = models.CharField(max_length=255, null=True, blank=True)
+  youtube_id = models.CharField(max_length=255, null=True, blank=True)
+
   makeup = models.IntegerField(choices=MAKEUPS)
   is_auditioning = models.BooleanField()
 

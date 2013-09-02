@@ -1,3 +1,5 @@
+{% load group_tags %}
+
 <div class="infowindow">
   <h3>{{ group.name }}</h3>
   <p><strong>Location:</strong> {{ group.location }}</p>
@@ -11,22 +13,34 @@
     <table>
       <tr>
         {% if group.email %}
-          <td><a href="mailto:{{ group.email }}" target="_blank"><img src="{{ STATIC_URL }}img/Mail.png" /></a></td>
+          {% social_cell group "email" %}
+        {% endif %}
+        {% if group.bajigga_id %}
+          {% social_cell group "bajigga_id" %}
         {% endif %}
         {% if group.facebook_id %}
-          <td><a href="https://facebook.com/{{ group.facebook_id }}" target="_blank"><img src="{{ STATIC_URL }}img/Facebook.png" /></a></td>
-        {% endif %}
-        {% if group.twitter_id %}
-          <td><a href="https://twitter.com/{{ group.twitter_id }}" target="_blank"><img src="{{ STATIC_URL }}img/Twitter.png" /></a></td>
-        {% endif %}
-        {% if group.youtube_id %}
-          <td><a href="https://youtube.com/user/{{ group.youtube_id }}" target="_blank"><img src="{{ STATIC_URL }}img/YouTube.png" /></a></td>
+          {% social_cell group "facebook_id" %}
         {% endif %}
         {% if group.gplus_id %}
-          <td><a href="https://plus.google.com/{{ group.gplus_id }}" target="_blank"><img src="{{ STATIC_URL }}img/Google+.png" /></a></td>
+          {% social_cell group "gplus_id" %}
         {% endif %}
         {% if group.myspace_id %}
-          <td><a href="https://myspace.com/{{ group.myspace_id }}" target="_blank"><img src="{{ STATIC_URL }}img/MySpace.png" /></a></td>
+          {% social_cell group "myspace_id" %}
+        {% endif %}
+        {% if group.soundcloud_id %}
+          {% social_cell group "soundcloud_id" %}
+        {% endif %}
+        {% if group.spotify_id %}
+          {% social_cell group "spotify_id" %}
+        {% endif %}
+        {% if group.tumblr_id %}
+          {% social_cell group "tumblr_id" %}
+        {% endif %}
+        {% if group.twitter_id %}
+          {% social_cell group "twitter_id" %}
+        {% endif %}
+        {% if group.youtube_id %}
+          {% social_cell group "youtube_id" %}
         {% endif %}
       </tr>
     </table>
