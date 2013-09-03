@@ -1,5 +1,4 @@
 {% load group_tags %}
-
 <div class="infowindow">
   <h3>{{ group.name }}</h3>
   <p><strong>Location:</strong> {{ group.location }}</p>
@@ -11,38 +10,7 @@
   {% endif %}
   {% if group.email or group.facebook_id or group.twitter_id or group.youtube_id or group.gplus_id or group.myspace_id %}
     <table>
-      <tr>
-        {% if group.email %}
-          {% social_cell group "email" %}
-        {% endif %}
-        {% if group.bajigga_id %}
-          {% social_cell group "bajigga_id" %}
-        {% endif %}
-        {% if group.facebook_id %}
-          {% social_cell group "facebook_id" %}
-        {% endif %}
-        {% if group.gplus_id %}
-          {% social_cell group "gplus_id" %}
-        {% endif %}
-        {% if group.myspace_id %}
-          {% social_cell group "myspace_id" %}
-        {% endif %}
-        {% if group.soundcloud_id %}
-          {% social_cell group "soundcloud_id" %}
-        {% endif %}
-        {% if group.spotify_id %}
-          {% social_cell group "spotify_id" %}
-        {% endif %}
-        {% if group.tumblr_id %}
-          {% social_cell group "tumblr_id" %}
-        {% endif %}
-        {% if group.twitter_id %}
-          {% social_cell group "twitter_id" %}
-        {% endif %}
-        {% if group.youtube_id %}
-          {% social_cell group "youtube_id" %}
-        {% endif %}
-      </tr>
+      {% social_row group True %}
     </table>
   {% endif %}
 </div>

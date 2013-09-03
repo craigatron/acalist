@@ -17,12 +17,27 @@ LINKS = {
     'twitter_id': ('https://twitter.com/', 'Twitter.png', 'Twitter'),
     'youtube_id': ('https://youtube.com/', 'YouTube.png', 'YouTube'),
 }
+LINK_ORDER = ['email', 'bajigga_id', 'facebook_id', 'gplus_id',
+    'myspace_id', 'soundcloud_id', 'spotify_id', 'tumblr_id',
+    'twitter_id', 'youtube_id']
+
+
+def social_link(group, field):
+  link_info = LINKS[field]
+  return '<a href="%s" target="_blank"><img src="%s" title="%s" /></a>' % (
+      link_info[0] + getattr(group, field),
+      settings.STATIC_URL + 'img/' + link_info[1], link_info[2])
 
 
 @register.simple_tag
-def social_cell(group, field):
-  link_info = LINKS[field]
-  return ('<td><a href="%s" target="_blank"><img src="%s" alt="%s" />'
-          '</a></td>') % (link_info[0] + getattr(group, field),
-                          settings.STATIC_URL + 'img/' + link_info[1],
-                          link_info[2])
+def social_row(group, use_table):
+  html = '<tr>' if use_table else '<span>'
+  for field in LINK_ORDER:
+    if getattr(group, field):
+      if use_table:
+        html += '<td>'
+      html += social_link(group, field)
+      if use_table:
+        html += '</td>'
+  return html + ('</tr>' if use_table else '</span>')
+

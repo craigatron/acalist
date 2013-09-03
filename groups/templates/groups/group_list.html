@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% load group_tags %}
+{% load bootstrap_pagination %}
+
+{% block title %} - Group list{% endblock %}
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ STATIC_URL }}groups/css/list.css">
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <h2>Group list</h2>
+    <table id="groups_table" class="table">
+      <tr>
+        <th>Name</th><th>Location</th><th>Website</th><th>Wikipella</th><th>On the web</th>
+      </tr>
+      {% for group in groups %}
+        <tr>
+          <td>{{ group.name }}</td>
+          <td>{{ group.location }}</td>
+          <td>
+            {% if group.website %}
+              <a href="{{ group.website }}" target="_blank">Link</a>
+            {% endif %}
+          </td>
+          <td>
+            {% if group.wikipella_id %}
+              <a href="http://wikipella.org/wiki/{{ group.wikipella_id }}" target="_blank">Link</a>
+            {% endif %}
+          </td>
+          <td>{% social_row group False %}</td>
+        </tr>
+      {% endfor %}
+    </table>
+    {% bootstrap_paginate groups range=10 show_first_last="true" %}
+  </div>
+{% endblock %}

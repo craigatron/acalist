@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext
 from django.views.decorators.http import require_GET
@@ -21,3 +22,19 @@ def group_info(request, group_id=None):
   group = get_object_or_404(Group, pk=group_id)
   return render(request, 'groups/group_info.html', dictionary={'group': group},
       context_instance=RequestContext(request))
+
+
+@require_GET
+def group_list(request):
+  group_list = Group.objects.order_by('name')
+  paginator = Paginator(group_list, 20)
+  page = request.GET.get('page')
+  try:
+    groups = paginator.page(page)
+  except PageNotAnInteger:
+    groups = paginator.page(1)
+  except EmptyPage:
+    groups = paginator.page(paginator.num_pages)
+
+  return render(request, 'groups/group_list.html',
+      dictionary={'groups': groups}, context_instance=RequestContext(request))
