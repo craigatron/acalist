@@ -45,16 +45,18 @@ Map.prototype.loadMarkers = function() {
   var self = this;
   $.getJSON(this.apiUrl_, {}, function(data) {
     $.each(data, function(i, item) {
-      var icon = self.staticUrl_ + self.iconFunction_(item);
-      var point = new google.maps.LatLng(item.latitude, item.longitude);
-      var marker = new google.maps.Marker({
-        map: self.map_,
-        title: item.name,
-        position: point,
-        icon: icon
-      });
-      marker.id = item.id;
-      self.oms_.addMarker(marker);
+      if (item.latitude && item.longitude) {
+        var icon = self.staticUrl_ + self.iconFunction_(item);
+        var point = new google.maps.LatLng(item.latitude, item.longitude);
+        var marker = new google.maps.Marker({
+          map: self.map_,
+          title: item.name,
+          position: point,
+          icon: icon
+        });
+        marker.id = item.id;
+        self.oms_.addMarker(marker);
+      }
     });
     if (self.useClusterer_) {
       var mcOptions = {

@@ -16,8 +16,8 @@ class Group(models.Model):
   name = models.CharField(max_length=255)
   group_type = models.IntegerField(choices=TYPES)
   location = models.TextField()
-  latitude = models.FloatField()
-  longitude = models.FloatField()
+  latitude = models.FloatField(null=True, blank=True)
+  longitude = models.FloatField(null=True, blank=True)
   website = models.URLField(null=True, blank=True)
   email = models.EmailField(max_length=255, null=True, blank=True)
 

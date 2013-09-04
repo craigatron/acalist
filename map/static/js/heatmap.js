@@ -11,7 +11,9 @@ Heatmap = function(apiUrl) {
   $.getJSON(this.apiUrl_, {}, function(data) {
     var pointArray = new google.maps.MVCArray();
     $.each(data, function(i, item) {
-      pointArray.push(new google.maps.LatLng(item.latitude, item.longitude));
+      if (item.latitude && item.longitude) {
+        pointArray.push(new google.maps.LatLng(item.latitude, item.longitude));
+      }
     });
     var heatmap = new google.maps.visualization.HeatmapLayer({
       data: pointArray,
