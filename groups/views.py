@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext
@@ -26,7 +27,14 @@ def group_info(request, group_id=None):
 
 @require_GET
 def group_list(request):
-  group_list = Group.objects.order_by('name')
+  if 'search' in request.GET:
+    query = request.GET['search']
+    group_list = Group.objects.filter(
+        Q(name__icontains=query) | Q(location__icontains=query))
+  else:
+    group_list = Group.objects.all()
+
+  group_list = group_list.order_by('name')
   paginator = Paginator(group_list, 20)
   page = request.GET.get('page')
   try:

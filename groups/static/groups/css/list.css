@@ -1,3 +1,10 @@
 #groups_table tr, #groups_table tr td {
   vertical-align: middle;
 }
+#search_input {
+  width: 80%;
+}
+#search_form {
+  text-align: center;
+  margin-bottom: 15px;
+}
