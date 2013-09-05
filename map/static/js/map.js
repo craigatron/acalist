@@ -10,7 +10,7 @@ Map = function(useClusterer, apiUrl, infoUrl, iconFunction, staticUrl) {
   var mapOptions = {
     center: new google.maps.LatLng(39.808536, -99.059326),
     zoom: 5,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+    mapTypeId: google.maps.MapTypeId.HYBRID
   }
   this.map_ = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
   this.map_.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(
