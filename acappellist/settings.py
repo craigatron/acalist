@@ -137,6 +137,7 @@ INSTALLED_APPS = (
     'comingsoon',
     'groups',
     'map',
+    'stats',
 )
 
 # A sample logging configuration. The only tangible logging

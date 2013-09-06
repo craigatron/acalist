@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %} - Stats{% endblock %}
+{% comment %}
+TODO: move JS and CSS out of this file
+{% endcomment %}
+{% block scripts %}
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load('visualization', '1', {packages:['corechart']});
+    google.setOnLoadCallback(drawCharts);
+    function drawCharts() {
+      var genders = google.visualization.arrayToDataTable({{ genders|safe }});
+      var genderOptions = {title: 'Group Makeups', pieHole: 0.4};
+      new google.visualization.PieChart(document.getElementById('genderchart')).draw(genders, genderOptions);
+
+      var types = google.visualization.arrayToDataTable({{ types|safe }});
+      var typeOptions = {title: 'Group Types', pieHole: 0.4};
+      new google.visualization.PieChart(document.getElementById('typechart')).draw(types, typeOptions);
+    }
+  </script>
+{% endblock %}
+{% block stylesheets %}
+  <style type="text/css">
+    html, body { height: 100%; }
+    .container, .col-md-6 { height: 100%; }
+  </style>
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <div id="genderchart" class="col-md-6"></div>
+    <div id="typechart" class="col-md-6"></div>
+  </div>
+{% endblock %}
