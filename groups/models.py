@@ -1,5 +1,16 @@
 from django.db import models
 
+
+class Tag(models.Model):
+  name = models.CharField(max_length=255)
+
+  def __unicode__(self):
+    return self.name
+
+  class Meta:
+    ordering = ('name',)
+
+
 class Group(models.Model):
   TYPES = (
       (0, 'scholastic'),
@@ -36,5 +47,10 @@ class Group(models.Model):
   makeup = models.IntegerField(choices=MAKEUPS)
   is_auditioning = models.BooleanField()
 
+  tags = models.ManyToManyField(Tag)
+
   def __unicode__(self):
     return self.name
+
+  class Meta:
+    ordering = ('name',)
