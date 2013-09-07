@@ -45,9 +45,9 @@ Map.prototype.loadMarkers = function() {
   var self = this;
   $.getJSON(this.apiUrl_, {}, function(data) {
     $.each(data, function(i, item) {
-      if (item.latitude && item.longitude) {
+      if (item.lat && item.lng) {
         var icon = self.staticUrl_ + self.iconFunction_(item);
-        var point = new google.maps.LatLng(item.latitude, item.longitude);
+        var point = new google.maps.LatLng(item.lat, item.lng);
         var marker = new google.maps.Marker({
           map: self.map_,
           title: item.name,

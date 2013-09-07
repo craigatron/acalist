@@ -3,7 +3,7 @@
 {% block endbody %}
 <script type="text/javascript">
   $(document).ready(function() {
-    var heatmap = new Heatmap('/api/groups/');
+    var heatmap = new Heatmap('/groups/location?collapse=true');
   });
 </script>
 {% endblock %}

@@ -1,5 +1,9 @@
-from django.db.models import Q
+import simplejson
+
+from django.db.models import Count, Q
+from django.core import serializers
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext
 from django.views.decorators.http import require_GET
@@ -46,3 +50,19 @@ def group_list(request):
 
   return render(request, 'groups/group_list.html',
       dictionary={'groups': groups}, context_instance=RequestContext(request))
+
+
+@require_GET
+def group_locations(request):
+  group_list = Group.objects.exclude(latitude__isnull=True, longitude__isnull=True)
+  if 'collapse' in request.GET and request.GET['collapse'].lower() == 'true':
+    group_list = group_list.values('latitude', 'longitude').annotate(count=Count('id'))
+    out_data = simplejson.dumps(
+        [{'lat': g['latitude'], 'lng': g['longitude'], 'cnt': g['count']} for g in group_list])
+  else:
+    out_data = simplejson.dumps(
+        [{'id': g.pk, 'name': g.name, 'type': g.group_type,
+          'lat': g.latitude, 'lng': g.longitude} for g in group_list])
+
+  return HttpResponse(out_data, mimetype='application/json')
+
