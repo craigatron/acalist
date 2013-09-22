@@ -26,7 +26,7 @@ def search_fb_profiles(search, types=None, makeups=None):
       data = json.load(
           urllib2.urlopen('https://graph.facebook.com/' + facebook_id))
       about = data.get('about', '').lower()
-      description = data.get('description').lower()
+      description = data.get('description', '').lower()
       bio = data.get('bio', '').lower()
       if search in about or search in description or search in bio:
         hit += 1
