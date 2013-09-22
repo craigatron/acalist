@@ -47,7 +47,7 @@ class Group(models.Model):
   makeup = models.IntegerField(choices=MAKEUPS)
   is_auditioning = models.BooleanField()
 
-  tags = models.ManyToManyField(Tag)
+  tags = models.ManyToManyField(Tag, null=True, blank=True)
 
   def __unicode__(self):
     return self.name
