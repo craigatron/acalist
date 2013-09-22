@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext
 from django.views.decorators.http import require_GET
+from groups.forms import SearchForm
 from groups.models import Group
 
 @require_GET
@@ -31,12 +32,21 @@ def group_info(request, group_id=None):
 
 @require_GET
 def group_list(request):
-  if 'search' in request.GET:
-    query = request.GET['search']
-    group_list = Group.objects.filter(
-        Q(name__icontains=query) | Q(location__icontains=query))
+  group_list = Group.objects.all()
+  if any([x in request.GET for x in ['group_type', 'makeup', 'search']]):
+    form = SearchForm(request.GET)
+    if form.is_valid():
+      data = form.cleaned_data
+      if data.get('group_type'):
+        group_list = group_list.filter(group_type=data['group_type'])
+      if data.get('makeup'):
+        group_list = group_list.filter(makeup=data['makeup'])
+      if data.get('search'):
+        query = data.get('search')
+        group_list = group_list.filter(
+            Q(name__icontains=query) | Q(location__icontains=query))
   else:
-    group_list = Group.objects.all()
+    form = SearchForm()
 
   group_list = group_list.order_by('name')
   paginator = Paginator(group_list, 20)
@@ -49,7 +59,8 @@ def group_list(request):
     groups = paginator.page(paginator.num_pages)
 
   return render(request, 'groups/group_list.html',
-      dictionary={'groups': groups}, context_instance=RequestContext(request))
+      dictionary={'groups': groups, 'form': form},
+      context_instance=RequestContext(request))
 
 
 @require_GET
@@ -65,4 +76,3 @@ def group_locations(request):
           'lat': g.latitude, 'lng': g.longitude} for g in group_list])
 
   return HttpResponse(out_data, mimetype='application/json')
-

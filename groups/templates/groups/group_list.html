@@ -10,12 +10,46 @@
 {% block content %}
   <div class="container">
     <h2>Group list</h2>
-    <form id="search_form" class="form-inline" method="get">
-      <label class="sr-only" for="search">Search</label>
-      <input id="search_input" name="search" type="text" class="form-control" placeholder="Search">
-      <button type="submit" class="btn btn-default">Submit</button>
-      <a href="/groups" class="btn btn-default">Clear</a>
-      </form>
+    <form id="search_form" class="form-horizontal" method="get">
+      {{ form.non_field_errors }}
+      {{ form.search_errors }}
+      <div class="form-group">
+        <label class="sr-only" for="search">Search</label>
+        <div class="col-md-12">
+          {{ form.search }}
+        </div>
+      </div>
+      {{ form.distance_errors }}
+      {{ form.unit_errors }}
+      {{ form.location_errors }}
+      <div class="form-group">
+        <div class="input-group col-md-2">
+          <span class="input-group-addon">Within</span>
+            {{ form.distance }}
+        </div>
+        <div class="input-group col-md-10">
+          <span class="input-group-addon">
+            {{ form.unit }}
+          </span>
+          {{ form.location }}
+        </div>
+      </div>
+      {{ form.makeup_errors }}
+      {{ form.type_errors }}
+      <div class="form-group">
+        <div class="col-md-2">
+          <label for="makeup">Makeup</label>
+          {{ form.makeup }}
+        </div>
+        <div class="col-md-3">
+          <label for="type">Type</label>
+          {{ form.group_type }}
+        </div>
+        <div class="col-md-5"></div>
+        <button type="submit" class="btn btn-default col-md-1">Submit</button>
+        <a href="/groups" class="btn btn-default col-md-1">Clear</a>
+      </div>
+    </form>
     {% if groups|length_is:"0" %}
       <h3>No groups matched your search!</h3>
     {% else %}
