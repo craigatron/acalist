@@ -1,4 +1,7 @@
+from math import asin, cos, radians, sin, sqrt
 import simplejson
+import urllib
+import urllib2
 
 from django.db.models import Count, Q
 from django.core import serializers
@@ -6,6 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext
+from django.utils.html import escape
 from django.views.decorators.http import require_GET
 from groups.forms import SearchForm
 from groups.models import Group
@@ -45,10 +49,24 @@ def group_list(request):
         query = data.get('search')
         group_list = group_list.filter(
             Q(name__icontains=query) | Q(location__icontains=query))
+      if data.get('location'):
+        geocode_url = 'https://maps.googleapis.com/maps/api/geocode/json'
+        location = escape(data.get('location'))
+        loc_data = simplejson.load(urllib2.urlopen(geocode_url + '?' +
+            urllib.urlencode({'sensor': 'false', 'address': location})))
+        if (loc_data.get('results') and loc_data['results'][0].get('geometry')
+            and loc_data['results'][0]['geometry'].get('location')):
+          latlng = loc_data['results'][0]['geometry']['location']
+          group_list = geo_filter(group_list, latlng['lat'], latlng['lng'],
+              data.get('distance'), data.get('unit'))
   else:
     form = SearchForm()
 
-  group_list = group_list.order_by('name')
+  if isinstance(group_list, list):
+    group_list.sort(key=lambda x: x.name)
+  else:
+    group_list = group_list.order_by('name')
+
   paginator = Paginator(group_list, 20)
   page = request.GET.get('page')
   try:
@@ -61,6 +79,33 @@ def group_list(request):
   return render(request, 'groups/group_list.html',
       dictionary={'groups': groups, 'form': form},
       context_instance=RequestContext(request))
+
+def geo_filter(queryset, lat, lng, distance, dist_unit):
+  mult = 69.172 if dist_unit == '0' else 111.322
+  r = 3959 if dist_unit == '0' else 6371
+  dist = float(distance)
+  minlon = lng - (dist / abs(cos(radians(lat)) * mult))
+  maxlon = lng + (dist / abs(cos(radians(lat)) * mult))
+  minlat = lat - (dist / mult)
+  maxlat = lat + (dist / mult)
+
+  queryset = queryset.exclude(latitude__lt=minlat).exclude(
+      latitude__gt=maxlat).exclude(longitude__lt=minlon).exclude(
+      longitude__gt=maxlon)
+  # THIS IS BAD AND I NEED TO CHANGE IT
+  new_list = []
+  for group in queryset:
+    grouplat = group.latitude
+    grouplng = group.longitude
+    dlat = radians(grouplat - lat)
+    dlon = radians(grouplng - lng)
+    lat1 = radians(lat)
+    lat2 = radians(grouplat)
+    a = sin(dlat / 2) * sin(dlat / 2) + sin(dlon / 2) * sin(dlon / 2) * cos(lat1) * cos(lat2)
+    c = 2 * asin(sqrt(a))
+    if (r * c < distance):
+      new_list.append(group)
+  return new_list
 
 
 @require_GET

@@ -12,5 +12,7 @@ class SearchForm(forms.Form):
   location = forms.CharField(required=False,
       widget=forms.TextInput(attrs={'class': 'form-control',
                                     'placeholder': 'location'}))
-  makeup = forms.ChoiceField((('', ''),) + Group.MAKEUPS, required=False)
-  group_type = forms.ChoiceField((('', ''),) + Group.TYPES, required=False)
+  makeup = forms.ChoiceField((('', ''),) + Group.MAKEUPS, required=False,
+      widget=forms.Select(attrs={'class': 'form-control'}))
+  group_type = forms.ChoiceField((('', ''),) + Group.TYPES, required=False,
+      widget=forms.Select(attrs={'class': 'form-control'}))

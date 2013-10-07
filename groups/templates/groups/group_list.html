@@ -37,15 +37,15 @@
       {{ form.makeup_errors }}
       {{ form.type_errors }}
       <div class="form-group">
+        <label for="makeup" class="col-md-1 control-label">Makeup</label>
         <div class="col-md-2">
-          <label for="makeup">Makeup</label>
           {{ form.makeup }}
         </div>
+        <label for="type" class="col-md-1 control-label">Type</label>
         <div class="col-md-3">
-          <label for="type">Type</label>
           {{ form.group_type }}
         </div>
-        <div class="col-md-5"></div>
+        <div class="col-md-3"></div>
         <button type="submit" class="btn btn-default col-md-1">Submit</button>
         <a href="/groups" class="btn btn-default col-md-1">Clear</a>
       </div>
