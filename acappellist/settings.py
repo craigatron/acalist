@@ -1,15 +1,18 @@
 # Django settings for acappellist project.
 
+import dj_database_url
 import logging
 import os
 
-# local_settings should define the following:
-# DEBUG, TEMPLATE_DEBUG, DATABASES, SECRET_KEY
-# and any other local configuration
-try:
-  from local_settings import *
-except ImportError:
-  pass
+DEBUG = 'DEBUG' in os.environ and os.environ['DEBUG'] == '1'
+TEMPLATE_DEBUG = DEBUG
+PRODUCTION = 'PRODUCTION' in os.environ and str(os.environ['PRODUCTION']) == '1'
+
+SECRET_KEY = os.environ['SECRET_KEY']
+
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+DATABASES = {'default': dj_database_url.config()}
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -166,3 +169,6 @@ LOGGING = {
         },
     }
 }
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+ALLOWED_HOSTS = ['.acalist.com', '.herokuapp.com']
