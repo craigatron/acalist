@@ -97,6 +97,9 @@ def geo_filter(queryset, lat, lng, distance, dist_unit):
   for group in queryset:
     grouplat = group.latitude
     grouplng = group.longitude
+    if not grouplat or not grouplng:
+      continue
+
     dlat = radians(grouplat - lat)
     dlon = radians(grouplng - lng)
     lat1 = radians(lat)
