@@ -4,3 +4,6 @@ body {
 div.paginate {
   text-align: center;
 }
+.img-link {
+  padding: 0 5px !important;
+}

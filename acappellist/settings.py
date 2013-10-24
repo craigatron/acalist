@@ -171,4 +171,7 @@ LOGGING = {
 }
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-ALLOWED_HOSTS = ['.acalist.com', '.herokuapp.com']
+if DEBUG:
+  ALLOWED_HOSTS = ['*']
+else:
+  ALLOWED_HOSTS = ['.acalist.com', '.herokuapp.com']
