@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/comingsoon.css">
+{% endblock %}
+{% block title %} - About{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="col-md-12">
+      <h3>About the Acalist</h3>
+      <div class="container">
+        <p>
+          The Acalist is an effort by Craig Martek to organize the online world of a cappella.
+          There are three primary goals of the Acalist:
+          <ul>
+            <li>Make it easy to locate the a cappella groups in a given area.</li>
+            <li>Give greater visibility to acappella events.</li>
+            <li>Help those looking to join a group find either auditioning groups or other local people that might want to start a new group.</li>
+          </ul>
+        </p>
+        <p>Would you like to help out?  Feel free to <a href="mailto:craigmartek@gmail.com">get in touch!</a></p>
+        <p>The Acalist is graciously supported by the fine folks at <a href="http://thevocalcompany.com" target="_blank">The Vocal Company</a>.</p>
+      </div>
+      <div class="container social-links">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="http://facebook.com/TheAcalist" title="The Acalist on Facebook" class="si-facebook"></a></li>
+          <li><a href="http://twitter.com/TheAcalist" title="The Acalist on Twitter" class="si-twitter"></a></li>
+          <li><a href="https://github.com/craigatron/acalist" title="The Acalist source" class="si-github"></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock %}
