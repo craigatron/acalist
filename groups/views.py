@@ -59,6 +59,11 @@ def group_list(request):
           latlng = loc_data['results'][0]['geometry']['location']
           group_list = geo_filter(group_list, latlng['lat'], latlng['lng'],
               data.get('distance'), data.get('unit'))
+    elif request.GET.get('search'):
+      # hopefully temporary hack here
+      query = request.GET.get('search')
+      group_list = group_list.filter(
+          Q(name__icontains=query) | Q(location__icontains=query))
   else:
     form = SearchForm()
 
