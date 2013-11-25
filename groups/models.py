@@ -43,6 +43,9 @@ class Group(models.Model):
   twitter_id = models.CharField(max_length=30, null=True, blank=True)
   wikipella_id = models.CharField(max_length=255, null=True, blank=True)
   youtube_id = models.CharField(max_length=255, null=True, blank=True)
+  loudr_id = models.CharField(max_length=255, null=True, blank=True)
+  instagram_id = models.CharField(max_length=255, null=True, blank=True)
+  itunes_id = models.CharField(max_length=255, null=True, blank=True)
 
   makeup = models.IntegerField(choices=MAKEUPS)
   is_auditioning = models.BooleanField()

@@ -8,6 +8,9 @@ LINKS = {
     'bajigga_id': ('http://bajigga.com/', 'bajigga.png', 'Bajigga'),
     'facebook_id': ('https://facebook.com/', 'Facebook.png', 'Facebook'),
     'gplus_id': ('https://plus.google.com/', 'Google+.png', 'Google+'),
+    'itunes_id': ('https://itunes.apple.com/artist/', 'iTunes.png', 'iTunes'),
+    'instagram_id': ('https://instagram.com/', 'Instagram.png', 'Instagram'),
+    'loudr_id': ('http://loudr.fm/artist/', 'loudr.png', 'Loudr'),
     'myspace_id': ('https://myspace.com/', 'MySpace.png', 'MySpace'),
     'soundcloud_id': ('https://soundcloud.com/', 'Soundcloud.png',
                       'Soundcloud'),
@@ -18,8 +21,8 @@ LINKS = {
     'youtube_id': ('https://youtube.com/', 'YouTube.png', 'YouTube'),
 }
 LINK_ORDER = ['email', 'bajigga_id', 'facebook_id', 'gplus_id',
-    'myspace_id', 'soundcloud_id', 'spotify_id', 'tumblr_id',
-    'twitter_id', 'youtube_id']
+    'instagram_id', 'myspace_id', 'soundcloud_id', 'spotify_id', 'tumblr_id',
+    'twitter_id', 'youtube_id', 'loudr_id', 'itunes_id']
 
 
 def social_link(group, field):
