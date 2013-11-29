@@ -1,4 +1,5 @@
-#groups_table tr, #groups_table tr td {
+#groups_table tr, #groups_table tr td,
+#events_table tr, #events_table tr td {
   vertical-align: middle;
 }
 #search_input {
