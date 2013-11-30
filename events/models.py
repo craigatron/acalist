@@ -7,6 +7,7 @@ class Event(models.Model):
       (1, 'festival'),
       (2, 'competition'),
       (3, 'audition'),
+      (4, 'caroling'),
   )
   name = models.CharField(max_length=255)
   event_type = models.IntegerField(choices=EVENT_TYPES)
