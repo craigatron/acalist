@@ -1,0 +1,24 @@
+<div class="infowindow">
+  <h3>{{ event.name }}</h3>
+  <p><strong>Location:</strong> {{ event.location }}</p>
+  {% if names|length_is:"1" %}
+    <p><strong>Group:</strong>
+  {% else %}
+    <p><strong>Groups:</strong>
+  {% endif %}
+  {{ names|join:", " }}</p>
+  {% if event.start_time %}
+    <p><strong>Time:</strong> {{ event.start_time }}</p>
+  {% elif event.start_date %}
+    <p><strong>Date:</strong> {{ event.start_date }}
+    {% if event.end_date %}
+      - {{ event.end_date }}
+    {% endif %}
+  {% endif %}
+  {% if event.website %}
+    <p><a href="{{ event.website }}" target="_blank">Website</a></p>
+  {% endif %}
+  {% if event.facebook_event_id %}
+    <a href="https://facebook.com/events/{{ event.facebook_event_id }}" target="_blank"><img src="{{ STATIC_URL }}img/Facebook.png" /></a>
+  {% endif %}
+</div>
