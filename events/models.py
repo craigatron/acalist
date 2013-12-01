@@ -20,4 +20,4 @@ class Event(models.Model):
   # only really relevant for multi-day things
   start_date = models.DateField(null=True, blank=True)
   end_date = models.DateField(null=True, blank=True)
-  groups = models.ManyToManyField(Group)
+  groups = models.ManyToManyField(Group, null=True, blank=True)
