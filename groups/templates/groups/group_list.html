@@ -64,17 +64,20 @@
     {% else %}
       <table id="groups_table" class="table">
         <tr>
-          <th>Name</th><th>Location</th><th>Website</th><th>Wikipella</th><th>On the web</th>
+          <th>Name</th><th>Location</th><th>Wikipella</th><th>On the web</th>
         </tr>
         {% for group in groups %}
           <tr>
-            <td>{{ group.name }}</td>
-            <td>{{ group.location }}</td>
             <td>
               {% if group.website %}
-                <a href="{{ group.website }}" target="_blank">Link</a>
+                <a href="{{ group.website }}" target="_blank">
+              {% endif %}
+              {{ group.name }}
+              {% if group.website %}
+                </a>
               {% endif %}
             </td>
+            <td>{{ group.location }}</td>
             <td>
               {% if group.wikipella_id %}
                 <a href="http://wikipella.org/wiki/{{ group.wikipella_id }}" target="_blank">Link</a>

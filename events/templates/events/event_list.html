@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 
-{% comment %}
-{% load group_tags %}
 {% load bootstrap_pagination %}
-{% endcomment %}
 
 {% block title %} - Event list{% endblock %}
 {% block stylesheets %}
@@ -26,14 +23,31 @@
     {% else %}
       <table id="events_table" class="table">
         <tr>
-          <th>Name</th><th>Groups</th><th>Date</th><th>Location</th><th>Website</th><th>On the web</th>
+          <th>Name</th><th>Groups</th><th>Date</th><th>Location</th><th>On the web</th>
         </tr>
         {% for event in events %}
           <tr>
-            <td>{{ event.name }}</td>
+            <td>
+              {% if event.website %}
+                <a href="{{ event.website }}" target="_blank">
+              {% endif %}
+              {{ event.name }}
+              {% if event.website %}
+                </a>
+              {% endif %}
+            </td>
             <td>
               {% for group in event.groups.all %}
-                {{ group.name }}<br />
+                {% if group.website %}
+                  <a href="{{ group.website }}" target="_blank">
+                {% elif group.facebook_id %}
+                  <a href="https://facebook.com/{{ group.facebook_id }}" target="_blank">
+                {% endif %}
+                {{ group.name }}
+                {% if group.website or group.facebook_id %}
+                  </a>
+                {% endif %}
+                <br />
               {% endfor %}
             </td>
             <td>
@@ -47,11 +61,6 @@
             </td>
             <td>{{ event.location }}</td>
             <td>
-              {% if event.website %}
-                <a href="{{ event.website }}" target="_blank">Link</a>
-              {% endif %}
-            </td>
-            <td>
               {% if event.facebook_event_id %}
                 <a href="https://facebook.com/events/{{ event.facebook_event_id }}" target="_blank">
                   <img src="{{ STATIC_URL }}img/Facebook.png" />
@@ -61,11 +70,9 @@
           </tr>
         {% endfor %}
       </table>
-      {% comment %}
       <div class="paginate">
-        {% bootstrap_paginate groups range=10 show_first_last="true" %}
+        {% bootstrap_paginate events range=10 show_first_last="true" %}
       </div>
-      {% endcomment %}
     {% endif %}
   </div>
 {% endblock %}
