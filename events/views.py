@@ -54,12 +54,6 @@ def event_info(request, event_id=None):
       context_instance=RequestContext(request))
 
 @require_GET
-def caroling_map(request):
-  return render(request, 'events/caroling_map.html',
-      dictionary={'include_oms': 1, 'include_clusterer': 1},
-      context_instance=RequestContext(request))
-
-@require_GET
 def event_map(request):
   return render(request, 'events/event_map.html',
       dictionary={'include_oms': 1, 'include_clusterer': 1},
