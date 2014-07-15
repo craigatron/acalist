@@ -1,9 +1,0 @@
-{% extends "map/base.html" %}
-{% block title %} - Groups Heatmap{% endblock %}
-{% block endbody %}
-<script type="text/javascript">
-  $(document).ready(function() {
-    var heatmap = new Heatmap('/groups/location?collapse=true');
-  });
-</script>
-{% endblock %}

@@ -1,0 +1,27 @@
+<div class="infowindow">
+  <h3>{{ group.name }}</h3>
+  <p>
+    <strong>Location:</strong>
+    {% if group.school %}
+      {{ group.school.location }}
+    {% elif group.location %}
+      {{ group.location }}
+    {% endif %}
+  </p>
+  {% if group.website %}
+    <p><a href="{{ group.website }}" target="_blank">Website</a></p>
+  {% endif %}
+  {% if group.wikipella_id %}
+    <p><a href="http://wikipella.org/wiki/{{ group.wikipella_id }}" target="_blank">Wikipella</a></p>
+  {% endif %}
+
+  {% if links %}
+    <table>
+      <tr>
+        {% for link in links %}
+          <td><a href="{{ link.0 }}" target="_blank"><img src="/static/img/{{ link.1 }}" title="{{ link.2 }}" /></a></td>
+        {% endfor %}
+      </tr>
+    </table>
+  {% endif %}
+</div>

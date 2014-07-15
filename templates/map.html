@@ -1,0 +1,38 @@
+{% extends "map_base.html" %}
+{% block title %} - Groups Map{% endblock %}
+{% block stylesheets %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="/static/css/groupmap.css">
+{% endblock %}
+{% block endbody %}
+<script type="text/javascript">
+  $(document).ready(function() {
+    var map = new Map(true, '/groups/location', '/groups/info/', function(item) {
+      switch (item.group_type) {
+        case 0:
+        return 'red.png';
+        case 1:
+        return 'blue.png';
+        case 2:
+        return 'green.png';
+        case 3:
+        return 'purple.png';
+        case 4:
+        return 'orange.png';
+      }
+    }, '/static/img/');
+    map.initialize();
+    map.loadMarkers();
+  });
+</script>
+{% endblock %}
+{% block legend %}
+  <div id="legend">
+    <table>
+      <tr><td><img src="/static/img/red.png" /></td><td>Scholastic</td></tr>
+      <tr><td><img src="/static/img/blue.png" /></td><td>Collegiate</td></tr>
+      <tr><td><img src="/static/img/green.png" /></td><td>Semi-professional</td></tr>
+      <tr><td><img src="/static/img/purple.png" /></td><td>Professional</td></tr>
+      <tr><td><img src="/static/img/orange.png" /></td><td>Other</td></tr>
+  </div>
+{% endblock %}

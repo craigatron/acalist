@@ -1,0 +1,32 @@
+.col-lg-4 {
+  text-align: center;
+}
+.col-lg-4 h2,
+.col-lg-4 p {
+  color: #5a5a5a;
+}
+.social-links li {
+  float: left;
+  display: inline-block;
+}
+.social-links li a {
+  display: inline-block;
+  height: 64px;
+  width: 64px;
+  background-size: 64px 64px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  margin: 5px;
+}
+.si-facebook {
+  background-color: #3B5998;
+  background-image: url('/static/img/facebook-64.png');
+}
+.si-twitter {
+  background-color: #00ACED;
+  background-image: url('/static/img/twitter-64.png');
+}
+.si-github {
+  background-color: #4183C4;
+  background-image: url('/static/img/github-64.png');
+}
