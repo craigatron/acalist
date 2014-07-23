@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}- Group list{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="/static/css/grouplist.css">
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    {% if groups %}
+      <table id="groups_table" class="table">
+        <tr>
+          <th>Name</th><th>Location</th><th>Wikipella</th><th>On the web</th>
+        </tr>
+        {% for group in groups %}
+          <tr>
+            <td>
+              {% if group.website %}
+                <a href="{{ group.website }}" target="_blank">
+              {% endif %}
+              {{ group.name }}
+              {% if group.website %}
+                </a>
+              {% endif %}
+            </td>
+            <td>
+              {% if group.school %}
+                {{ group.school.location }}
+              {% else %}
+                {{ group.location }}
+              {% endif %}
+            </td>
+            <td>
+              {% if group.wikipella_id %}
+                <a href="http://wikipella.org/wiki/{{ group.wikipella_id }}" target="_blank">Link</a>
+              {% endif %}
+            </td>
+            <td>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+      <ul class="pager">
+        {% if previous %}<li><a href="{{ previous }}">Previous</a>{% endif %}
+        {% if next %}<li><a href="{{ next }}">Next</a>{% endif %}
+      </ul>
+    {% else %}
+      <h3>No groups matched your search!</h3>
+    {% endif %}
+  </div>
+{% endblock %}

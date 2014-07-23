@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, request, Response, url_for
 import urllib2
 import json
 app = Flask(__name__)
@@ -34,6 +34,24 @@ def about():
 @app.route('/groups/map')
 def map():
   return render_template('map.html', include_oms=True, include_clusterer=True)
+  
+@app.route('/groups')
+def group_list():
+  page = int(request.args.get('page', 1))
+  groups_url = API_URL + 'groups?format=json'
+  if page:
+    groups_url += '&page=%d' % page
+  response = json.load(urllib2.urlopen(groups_url))
+  groups = response['results']
+
+  previous = None
+  next = None
+  if response.get('next'):
+    next = url_for('group_list') + '?page=%d' % (page + 1)
+  if response.get('previous'):
+    previous = url_for('group_list') + '?page=%d' % (page - 1)
+  
+  return render_template('group_list.html', groups=groups, previous=previous, next=next)
   
 @app.route('/groups/heatmap')
 def heatmap():
