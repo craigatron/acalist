@@ -8,6 +8,17 @@
 
 {% block content %}
   <div class="container">
+    <h2>Group list</h2>
+    <form id="search_form" class="form-horizontal" method="get">
+      <div class="form-group">
+        <label class="sr-only" for="search">Search</label>
+        <div class="col-md-10">
+          <input class="form-control" id="id_search" name="search" placeholder="Search" type="text"{% if search %}value="{{ search }}"{% endif %}/>
+        </div>
+        <button type="submit" class="btn btn-default col-md-1">Submit</button>
+        <a href="/groups" class="btn btn-default col-md-1">Clear</a>
+      </div>
+    </form>
     {% if groups %}
       <table id="groups_table" class="table">
         <tr>

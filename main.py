@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, Response, url_for
+import urllib
 import urllib2
 import json
 app = Flask(__name__)
@@ -38,20 +39,29 @@ def map():
 @app.route('/groups')
 def group_list():
   page = int(request.args.get('page', 1))
-  groups_url = API_URL + 'groups?format=json'
-  if page:
-    groups_url += '&page=%d' % page
-  response = json.load(urllib2.urlopen(groups_url))
+  search = request.args.get('search')
+  
+  params = search_params(page=page, search=search)
+  params['format'] = 'json'
+  response = json.load(urllib2.urlopen(API_URL + 'groups?' + urllib.urlencode(params)))
   groups = response['results']
 
   previous = None
   next = None
   if response.get('next'):
-    next = url_for('group_list') + '?page=%d' % (page + 1)
+    next = url_for('group_list') + '?' + urllib.urlencode(search_params(page=page+1, search=search))
   if response.get('previous'):
-    previous = url_for('group_list') + '?page=%d' % (page - 1)
+    previous = url_for('group_list') + '?' + urllib.urlencode(search_params(page=page-1, search=search))
+
+  return render_template('group_list.html', groups=groups, previous=previous, next=next, search=search)
   
-  return render_template('group_list.html', groups=groups, previous=previous, next=next)
+def search_params(page=None, search=None):
+  params = {}
+  if page and page != 1:
+    params['page'] = page
+  if search:
+    params['search'] = search
+  return params
   
 @app.route('/groups/heatmap')
 def heatmap():
