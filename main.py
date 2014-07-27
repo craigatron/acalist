@@ -40,8 +40,9 @@ def map():
 def group_list():
   page = int(request.args.get('page', 1))
   search = request.args.get('search')
+  school = request.args.get('school')
   
-  params = search_params(page=page, search=search)
+  params = search_params(page=page, search=search, school=school)
   params['format'] = 'json'
   response = json.load(urllib2.urlopen(API_URL + 'groups?' + urllib.urlencode(params)))
   groups = response['results']
@@ -54,18 +55,20 @@ def group_list():
   previous = None
   next = None
   if response.get('next'):
-    next = url_for('group_list') + '?' + urllib.urlencode(search_params(page=page+1, search=search))
+    next = url_for('group_list') + '?' + urllib.urlencode(search_params(page=page+1, search=search, school=school))
   if response.get('previous'):
-    previous = url_for('group_list') + '?' + urllib.urlencode(search_params(page=page-1, search=search))
+    previous = url_for('group_list') + '?' + urllib.urlencode(search_params(page=page-1, search=search, school=school))
 
   return render_template('group_list.html', groups=groups, previous=previous, next=next, search=search)
   
-def search_params(page=None, search=None):
+def search_params(page=None, search=None, school=None):
   params = {}
   if page and page != 1:
     params['page'] = page
   if search:
     params['search'] = search
+  if school:
+    params['school'] = school
   return params
   
 @app.route('/groups/heatmap')

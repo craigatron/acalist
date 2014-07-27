@@ -37,7 +37,7 @@
             </td>
             <td>
               {% if group.school %}
-                {{ group.school.location }}
+                <a href="/groups?school={{ group.school.id }}">{{ group.school.location }}</a>
               {% else %}
                 {{ group.location }}
               {% endif %}
