@@ -45,6 +45,11 @@ def group_list():
   params['format'] = 'json'
   response = json.load(urllib2.urlopen(API_URL + 'groups?' + urllib.urlencode(params)))
   groups = response['results']
+  
+  for g in groups:
+    links = get_group_links(g)
+    if links:
+      g['links'] = get_group_links(g)
 
   previous = None
   next = None
@@ -74,10 +79,12 @@ def groups():
 @app.route('/groups/info/<group_id>')
 def group_info(group_id):
   group_dict = json.load(urllib2.urlopen(API_URL + 'groups/' + group_id + '?format=json'))
+  return render_template('group_info.html', group=group_dict, links=get_group_links(group_dict))
+  
+def get_group_links(group_dict):
   links = []
   for field in LINK_ORDER:
     if group_dict.get(field):
-        f = LINKS[field]
-        links.append((f[0] + group_dict[field], f[1], f[2]))
-
-  return render_template('group_info.html', group=group_dict, links=links)
+      f = LINKS[field]
+      links.append((f[0] + group_dict[field], f[1], f[2]))
+  return links
