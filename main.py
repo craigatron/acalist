@@ -4,6 +4,8 @@ import urllib2
 import json
 app = Flask(__name__)
 app.config['DEBUG'] =  True
+app.jinja_env.trim_blocks = True
+app.jinja_env.lstrip_blocks = True
 
 API_URL = 'http://www.openaca.org/api/'
 LINKS = {
@@ -91,3 +93,20 @@ def get_group_links(group_dict):
       f = LINKS[field]
       links.append((f[0] + group_dict[field], f[1], f[2]))
   return links
+  
+@app.route('/events')
+def event_list():
+  page = int(request.args.get('page', 1))
+  url = API_URL + 'events'
+  if page and page != 1:
+    url += '?page=%d' % page
+  response = json.load(urllib2.urlopen(url))
+  events = response['results']
+
+  previous = None
+  next = None
+  if response.get('next'):
+    next = url_for('event_list') + '?page=%d' % (page + 1)
+  if response.get('previous'):
+    previous = url_for('group_list') + '?page=%d' % (page - 1)
+  return render_template('event_list.html', events=events, previous=previous, next=next)

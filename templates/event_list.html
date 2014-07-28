@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %} - Event list{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="/static/css/list.css">
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h2>Event list</h2>
+    {% if events %}
+      <table id="events_table" class="table">
+        <tr>
+          <th>Name</th><th>Groups</th><th>Date</th><th>Location</th><th>Other links</th>
+        </tr>
+        {% for event in events %}
+          <tr>
+            <td>
+              {% if event.website %}
+                <a href="{{ event.website }}" target="_blank">
+              {% endif %}{{ event.name }}{% if event.website %}</a>{% endif %}
+            </td>
+            <td>
+              {% for group in event.groups %}
+                {% if group.link %}
+                  <a href="{{ group.link }}" target="_blank">
+                {% endif %}{{ group.name }}{% if group.link %}</a>{% endif %}
+                <br />
+              {% endfor %}
+            </td>
+            <td>
+              {% if event.start_time %}
+                {{ event.start_time }}
+              {% elif event.start_date and event.end_date %}
+                {{ event.start_date }} - {{ event.end_date }}
+              {% elif event.start_date %}
+                {{ event.start_date }}
+              {% endif %}
+            </td>
+            <td>{{ event.location }}</td>
+            <td>
+              {% if event.fb_event_id %}
+                <a href="https://facebook.com/events/{{ event.fb_event_id }}" target="_blank" text="Facebook">
+                  <img src="/static/img/Facebook.png" />
+                </a>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+      <ul class="pager">
+        {% if previous %}<li><a href="{{ previous }}">Previous</a>{% endif %}
+        {% if next %}<li><a href="{{ next }}">Next</a>{% endif %}
+      </ul>
+    {% else %}
+      <h3>No events found!</h3>
+    {% endif %}
+  </div>
+{% endblock %}

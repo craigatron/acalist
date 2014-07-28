@@ -3,7 +3,7 @@
 {% block title %} - Group list{% endblock %}
 
 {% block stylesheets %}
-  <link rel="stylesheet" href="/static/css/grouplist.css">
+  <link rel="stylesheet" href="/static/css/list.css">
 {% endblock %}
 
 {% block content %}
@@ -27,20 +27,14 @@
         {% for group in groups %}
           <tr>
             <td>
-              {% if group.website %}
-                <a href="{{ group.website }}" target="_blank">
-              {% endif %}
+              {% if group.website %}<a href="{{ group.website }}" target="_blank">{% endif %}
               {{ group.name }}
-              {% if group.website %}
-                </a>
-              {% endif %}
+              {% if group.website %}</a>{% endif %}
             </td>
             <td>
               {% if group.school %}
                 <a href="/groups?school={{ group.school.id }}">{{ group.school.location }}</a>
-              {% else %}
-                {{ group.location }}
-              {% endif %}
+              {% else %}{{ group.location }}{% endif %}
             </td>
             <td>
               {% if group.wikipella_id %}
