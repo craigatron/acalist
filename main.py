@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, Response, url_for
 import urllib
 import urllib2
 import json
+from google.appengine.api import memcache
 app = Flask(__name__)
 app.config['DEBUG'] =  True
 app.jinja_env.trim_blocks = True
@@ -79,7 +80,12 @@ def heatmap():
   
 @app.route('/groups/location')
 def groups():
-  return Response(urllib2.urlopen(API_URL + 'groups?loc&format=json'), mimetype='application/json')
+  all_groups = memcache.get('groups')
+  if not all_groups:
+    all_groups = urllib2.urlopen(API_URL + 'groups?loc&format=json').read()
+    memcache.set('groups', all_groups)
+
+  return Response(all_groups, mimetype='application/json')
   
 @app.route('/groups/info/<group_id>')
 def group_info(group_id):
