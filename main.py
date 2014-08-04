@@ -116,3 +116,14 @@ def event_list():
   if response.get('previous'):
     previous = url_for('group_list') + '?page=%d' % (page - 1)
   return render_template('event_list.html', events=events, previous=previous, next=next)
+  
+@app.route('/stats')
+def stats():
+  stats_json = json.load(urllib2.urlopen(API_URL + 'stats'))
+  group_stats = stats_json['groups']
+  makeups = [['Makeup', 'Count']]
+  makeups = [[str(k), v] for k, v in group_stats['makeups'].items()]
+  makeups.insert(0, ['Makeup', 'Count'])
+  types = [[str(k), v] for k, v in group_stats['types'].items()]
+  types.insert(0, ['Type', 'Count'])
+  return render_template('stats.html', group_makeups=str(makeups), group_types=str(types), group_total=group_stats['total'])
