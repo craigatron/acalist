@@ -22,7 +22,7 @@
     {% if groups %}
       <table id="groups_table" class="table">
         <tr>
-          <th>Name</th><th>Location</th><th>Wikipella</th><th>On the web</th>
+          <th>Name</th><th>Location</th><th>On the web</th>
         </tr>
         {% for group in groups %}
           <tr>
@@ -37,11 +37,6 @@
                   <a href="/groups?school={{ school.id }}">{{ school.location }}</a>
                 {% endfor %}
               {% else %}{{ group.location }}{% endif %}
-            </td>
-            <td>
-              {% if group.wikipella_id %}
-                <a href="http://wikipella.org/wiki/{{ group.wikipella_id }}" target="_blank">Link</a>
-              {% endif %}
             </td>
             <td>
               <span>
