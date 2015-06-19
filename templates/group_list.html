@@ -33,7 +33,9 @@
             </td>
             <td>
               {% if group.school %}
-                <a href="/groups?school={{ group.school.id }}">{{ group.location }}</a>
+                {% for school in group.school %}
+                  <a href="/groups?school={{ school.id }}">{{ school.location }}</a>
+                {% endfor %}
               {% else %}{{ group.location }}{% endif %}
             </td>
             <td>
