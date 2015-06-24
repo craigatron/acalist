@@ -1,7 +1,9 @@
 <div class="infowindow">
   <h3>{{ group.name }}</h3>
   {% if group.school %}
-    <h4>{{ group.school }}</h4>
+    {% for school in group.school %}
+      <h4>{{ school.name }}</h4>
+    {% endfor %}
   {% endif %}
   <p>
     <strong>Location:</strong>
