@@ -7,11 +7,7 @@
   {% endif %}
   <p>
     <strong>Location:</strong>
-    {% if group.school %}
-      {{ group.school[0].city.address }}
-    {% else %}
-      {{ group.city.address }}
-    {% endif %}
+    {% group.location %}
   </p>
   {% if group.website %}
     <p><a href="{{ group.website }}" target="_blank">Website</a></p>
