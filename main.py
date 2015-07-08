@@ -44,6 +44,7 @@ def group_list():
   page = int(request.args.get('page', 1))
   search = request.args.get('search')
   school = request.args.get('school')
+  city = request.args.get('city')
   
   params = search_params(page=page, search=search, school=school)
   params['format'] = 'json'
@@ -58,13 +59,13 @@ def group_list():
   previous = None
   next = None
   if response.get('next'):
-    next = url_for('group_list') + '?' + urllib.urlencode(search_params(page=page+1, search=search, school=school))
+    next = url_for('group_list') + '?' + urllib.urlencode(search_params(page=page+1, search=search, school=school, city=city))
   if response.get('previous'):
-    previous = url_for('group_list') + '?' + urllib.urlencode(search_params(page=page-1, search=search, school=school))
+    previous = url_for('group_list') + '?' + urllib.urlencode(search_params(page=page-1, search=search, school=school, city=city))
 
   return render_template('group_list.html', groups=groups, previous=previous, next=next, search=search)
   
-def search_params(page=None, search=None, school=None):
+def search_params(page=None, search=None, school=None, city=None):
   params = {}
   if page and page != 1:
     params['page'] = page
@@ -72,6 +73,8 @@ def search_params(page=None, search=None, school=None):
     params['search'] = search
   if school:
     params['school'] = school
+  if city:
+    params['city'] = city
   return params
   
 @app.route('/groups/heatmap')
