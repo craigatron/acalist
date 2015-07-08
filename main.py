@@ -46,7 +46,7 @@ def group_list():
   school = request.args.get('school')
   city = request.args.get('city')
   
-  params = search_params(page=page, search=search, school=school)
+  params = search_params(page=page, search=search, school=school, city=city)
   params['format'] = 'json'
   response = json.load(urllib2.urlopen(API_URL + 'groups?' + urllib.urlencode(params)))
   groups = response['results']
