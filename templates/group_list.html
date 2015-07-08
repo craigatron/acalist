@@ -36,7 +36,7 @@
                 {% for school in group.school %}
                   <a href="/groups?school={{ school.id }}">{{ school.location }}</a>
                 {% endfor %}
-              {% else if group.city %}
+              {% elif group.city %}
                 <a href="/groups?city={{ group.city.id }}">{{ group.city.address }}</a>
               {% else %}
                 {{ group.location }}
