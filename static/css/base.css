@@ -1,9 +1,7 @@
-body {
-  padding-top: 70px;
-}
 div.paginate {
   text-align: center;
 }
 .img-link {
-  padding: 0 5px !important;
+  height: 100%;
+  vertical-align: middle;
 }

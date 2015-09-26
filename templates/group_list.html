@@ -10,20 +10,21 @@
   <div class="container">
     <h2>Group list</h2>
     <form id="search_form" class="form-horizontal" method="get">
-      <div class="form-group">
-        <label class="sr-only" for="search">Search</label>
-        <div class="col-md-10">
+      <div class="form-group row">
+        <div class="col s10">
           <input class="form-control" id="id_search" name="search" placeholder="Search" type="text"{% if search %}value="{{ search }}"{% endif %}/>
         </div>
-        <button type="submit" class="btn btn-default col-md-1">Submit</button>
-        <a href="/groups" class="btn btn-default col-md-1">Clear</a>
+        <button type="submit" class="btn btn-default col s1">Submit</button>
+        <a href="/groups" class="btn btn-default col s1">Clear</a>
       </div>
     </form>
     {% if groups %}
-      <table id="groups_table" class="table">
-        <tr>
-          <th>Name</th><th>Location</th><th>On the web</th>
-        </tr>
+      <table id="groups_table" class="table striped">
+        <thead>
+          <tr>
+            <th>Name</th><th>Location</th><th>On the web</th>
+          </tr>
+        </thead>
         {% for group in groups %}
           <tr>
             <td>
@@ -52,9 +53,9 @@
           </tr>
         {% endfor %}
       </table>
-      <ul class="pager">
-        {% if previous %}<li><a href="{{ previous }}">Previous</a>{% endif %}
-        {% if next %}<li><a href="{{ next }}">Next</a>{% endif %}
+      <ul class="pagination">
+        {% if previous %}<li><a href="{{ previous }}" class="white-text text-lighten-2 btn">Previous</a>{% endif %}
+        {% if next %}<li><a href="{{ next }}" class="white-text text-lighten-2 btn">Next</a>{% endif %}
       </ul>
     {% else %}
       <h3>No groups matched your search!</h3>
